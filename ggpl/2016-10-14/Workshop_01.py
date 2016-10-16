@@ -1,12 +1,11 @@
 from pyplasm import *
-
+from larlib import *
 
 def gabbia((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
 
     Pilastri = creaPilastri((px,py),(altezzePilastri))
-    Travi = creaTravi ((tx,tz),larghezzeTravi)
+    Travi = creaTravi ((tx,tz),larghezzeTravi
     pianoPilastri = copiaPilastri(Pilastri,larghezzeTravi)
-    Travi = STRUCT([T(3)(-tz),Travi])
     pianoTravi = copiaTravi(Travi,altezzePilastri)
     
     gabbia = STRUCT([pianoPilastri,pianoTravi])
