@@ -9,7 +9,6 @@ def gabbia((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
     pianoTravi = copiaTravi(Travi,altezzePilastri)
     
     gabbia = STRUCT([pianoPilastri,pianoTravi])
-    
         
     return gabbia
 
