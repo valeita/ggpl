@@ -1,14 +1,14 @@
 from pyplasm import *
 
 
-def gabbia((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
+def gabbia((tx,tz),(px,py),l1,altezzePilastri,l2,larghezzeTravi):
 
-    Pilastri = creaPilastri((tx,tz),(px,py),altezzePilastri,larghezzeTravi)
-    Travi = creaTravi((tx,tz),(px,py),altezzePilastri,larghezzeTravi)
+    Pilastri = creaPilastri((tx,tz),(px,py),l1,altezzePilastri,l2,larghezzeTravi)
+    Travi = creaTravi((tx,tz),(px,py),l1,altezzePilastri,l2,larghezzeTravi)
     
     return STRUCT([Pilastri,Travi])
 
-def creaPilastri((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
+def creaPilastri((tx,tz),(px,py),l1,altezzePilastri,l2,larghezzeTravi):
     
     ay = []
     ax = [px]
@@ -30,17 +30,17 @@ def creaPilastri((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
     return Pilastri
 
 
-def creaTravi ((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
+def creaTravi ((tx,tz),(px,py),l1,altezzePilastri,l2,larghezzeTravi):
 
     ay = []
     ax = [tx]
     az = []
     
     for i in larghezzeTravi:
-
+        
         ay.append(py+i)
     ay.append(py)
-    
+
     for elem in altezzePilastri:
 
         az.append(-elem)
@@ -50,8 +50,5 @@ def creaTravi ((tx,tz),(px,py),altezzePilastri,larghezzeTravi):
     Travi = PROD([pianoTravi, QUOTE(az)])
 
     return Travi
-    
-
-VIEW(gabbia((10,100),(40,40),[1000,500,1000],[1000,500,1000]))
 
 
