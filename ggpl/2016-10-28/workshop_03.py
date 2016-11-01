@@ -7,13 +7,15 @@ def ggpl_building_stairs_with_landings(dx, dy, dz):
     3)la dimensione su z del complesso totale
     """
     hHalved = dz/2.0
-    angle = check(hHalved,dx)
-    if (check(hHalved,dx) != 100):
+    xReduced = (dx/3.0)*2.0
+    angle = check(hHalved,xReduced)
+    
+    if (angle != 100):
         print("dimensioni non valide.")
         print(" angolo " + str(angle) + " non compreso tra 30 gradi e 35 gradi")
         print("inserire delle dimensioni valide")
         return -1
-    xReduced = (dx/3.0)*2.0
+    
     floorX = dx/3.0
     comparisonAP = hHalved/xReduced
     stepZ = (0.63*comparisonAP)/((2.0*comparisonAP)+1.0)
@@ -77,9 +79,9 @@ def movesRampReflected(rampReflected, xReduced, hHalved, dy):
     
     
 
-def check(hHalved,dx):
+def check(hHalved,xReduced):
 
-    angle=ATAN(hHalved/dx)
+    angle=ATAN(hHalved/xReduced)
     angle = (angle/3.14)*180
     
     if(30<angle<35):
@@ -88,4 +90,4 @@ def check(hHalved,dx):
     return angle
 
 
-ggpl_building_stairs_with_landings(4,4,5.5)
+ggpl_building_stairs_with_landings(4,4,3.5)
