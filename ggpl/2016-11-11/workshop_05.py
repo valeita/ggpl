@@ -104,14 +104,20 @@ def create_lockers(dx,dy,dz):
     
     list.append(T([2,3])([larg_lockers-larg2_locker,h_plane])(SKEL_1(CUBOID([lun_lockers,larg2_locker,h_locker]))))
     list.append(T([2,3])([larg_lockers-larg2_locker,h_plane])(CUBOID([lun_lockers,larg2_locker,h_locker])))
-    
+
+    list.append(T([1,2,3])([-(larg2_locker/25.0),larg_lockers-(larg2_locker)+(3*h_plane),3*h_plane])(CUBOID([larg2_locker/10.0,larg2_locker/10.0,larg2_locker/10.0])))
+    list.append(T([1,2,3])([-(larg2_locker/25.0),larg_lockers-(larg2_locker)+(3*h_plane),3*h_plane])(SKEL_1(CUBOID([larg2_locker/10.0,larg2_locker/10.0,larg2_locker/10.0]))))
+#
+    list.append(T([1,2,3])([-(larg2_locker/25.0),larg_lockers-(larg2_locker)+(3*h_plane),3*h_plane])(CUBOID([larg2_locker/10.0,larg2_locker/10.0,larg2_locker/10.0])))
+    list.append(T([1,2,3])([-(larg2_locker/25.0),(larg2_locker)-(3*h_plane),3*h_plane])(SKEL_1(CUBOID([larg2_locker/10.0,larg2_locker/10.0,larg2_locker/10.0]))))
+#
     list.append(T([2,3])([larg2_locker,h_locker/3.0])(SKEL_1(CUBOID([lun_lockers,larg_plane,h_plane]))))
     list.append(T([2,3])([larg2_locker,h_locker/3.0])(CUBOID([lun_lockers,larg_plane,h_plane])))
     
     list.append(T([2,3])([larg2_locker,(h_locker/3.0)*2])(SKEL_1(CUBOID([lun_lockers,larg_plane,h_plane]))))
     list.append(T([2,3])([larg2_locker,(h_locker/3.0)*2])(CUBOID([lun_lockers,larg_plane,h_plane])))
-
-    structure = STRUCT(list)
+    
+    structure = (STRUCT(list))
 
     list_s = []
     list_s.append(T([1,2,3])([dx-lun_lockers,dy/3.0,(dz/10.0)*5.0])(structure))
@@ -129,8 +135,9 @@ def create_door(dx,dy,dz):
     larg_door = dy/5.0
     h_door = dz/2.0
     list = []
-    door = SKEL_1(CUBOID([0,larg_door,h_door]))
-    list.append(T(2)((dy/5)*3)(door))
+    list.append(T(2)((dy/5)*3))
+    list.append(SKEL_1(CUBOID([0,larg_door,h_door])))
+    list.append(SKEL_1(T([2,3])([(larg_door/5),h_door/2])(CUBOID([0,larg_door/10.0,larg_door/10.0]))))
     
     return STRUCT(list)
 
@@ -216,8 +223,8 @@ def create_cot(dx,dy,dz):
     list.append(T(2)((larg_cot/3.0)*2-lun_cot/6.0)(CUBOID([lun_cot/6.0,lun_cot/6.0,h_cot/2.0])))
     list.append(T(2)((larg_cot/3.0)*2-lun_cot/6.0)(SKEL_1(CUBOID([lun_cot/6.0,lun_cot/6.0,h_cot/2.0]))))
 
-    list.append(T(3)(h_reduced/2.0)(CUBOID([lun_cot-(2*(lun_cot/6.0)),(larg_cot/3.0)*2.0-(lun_cot/6.0),h_reduced/10.0])))
-    list.append(T(3)(h_reduced/2.0)(SKEL_1(CUBOID([lun_cot-(2*(lun_cot/6.0)),(larg_cot/3.0)*2.0-(lun_cot/6.0),h_reduced/10.0]))))
+    list.append(T([1,3])([lun_cot/6.0,h_reduced/2.0])(CUBOID([lun_cot-(2*(lun_cot/6.0)),(larg_cot/3.0)*2.0-(lun_cot/6.0),h_reduced/10.0])))
+    list.append(T([1,3])([lun_cot/6.0,h_reduced/2.0])(SKEL_1(CUBOID([lun_cot-(2*(lun_cot/6.0)),(larg_cot/3.0)*2.0-(lun_cot/6.0),h_reduced/10.0]))))
     coord = []
     coord.append([0,(larg_cot/3)*2,(h_cot/2.0)+h_reduced/5])
     coord.append([lun_cot,(larg_cot/3)*2,h_cot/2.0+(h_reduced/5.0)])
