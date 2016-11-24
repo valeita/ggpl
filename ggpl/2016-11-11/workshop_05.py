@@ -12,14 +12,15 @@ def ggpl_my_furniture(dx,dy,dz):
     room = OFFSET([0.01,0.01,0.01])(SKEL_1(CUBOID([dx,dy,dz])))
     door = OFFSET([0.01,0.01,0.01])(create_door(dx,dy,dz))
     
-    cabinet = COLOR(BROWN)(create_cabinet(dx,dy,dz))
-    lockers = COLOR(BROWN)(create_lockers(dx,dy,dz))
-    cart = COLOR(BROWN)(create_cart(dx,dy,dz))
-    cot = COLOR(BROWN)(create_cot(dx,dy,dz))
+    cabinet = create_cabinet(dx,dy,dz)
+    lockers = create_lockers(dx,dy,dz)
+    cart = create_cart(dx,dy,dz)
+    cot = create_cot(dx,dy,dz)
+
+    filledRoom = COLOR(Color4f([126/255., 78/255., 40/255., 1]))(STRUCT([room,cabinet,lockers,door,cart,cot]))
+    VIEW (filledRoom)
     
-    VIEW(STRUCT([room,cabinet,lockers,door,cart,cot]))
-    
-    return STRUCT([room,cabinet,lockers,door,cart,cot])
+    return filledRoom
 
 
 
@@ -235,13 +236,13 @@ def create_cot(dx,dy,dz):
     coord.append([lun_cot,((larg_cot/3)*2)+(larg_cot/3.0),h_cot/2.0+(h_reduced/5.0)*4])
     coord.append([lun_cot,((larg_cot/3)*2)+(larg_cot/3.0),h_cot/2.0+(h_reduced/5.0)+(h_reduced/5.0)*4])
     
-    plane = SKEL_2(MKPOL([coord,[[1,2,3,4,5,6,7,8]],[[1]]]))
+    plane = (MKPOL([coord,[[1,2,3,4,5,6,7,8]],[[1]]]))
     list.append(plane)
+    list.append(SKEL_1(plane))
     structure = S(2)(-1)(STRUCT(list))
     structure = T([1,2])([dx/2-(lun_cot/2),larg_cot+dy/20])(structure)
     
     return structure
-
 
 
 ggpl_my_furniture(1.5,2.5,2.0)
