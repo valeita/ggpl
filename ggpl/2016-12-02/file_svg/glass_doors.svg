@@ -16,7 +16,7 @@
    width="859"
    height="820"
    viewBox="0 0 859 820"
-   sodipodi:docname="quattro.svg">
+   sodipodi:docname="glass_doors.svg">
   <metadata
      id="metadata4142">
     <rdf:RDF>
@@ -44,9 +44,9 @@
      inkscape:window-height="1017"
      id="namedview4138"
      showgrid="false"
-     inkscape:zoom="6.78125"
-     inkscape:cx="497.28829"
-     inkscape:cy="57.188945"
+     inkscape:zoom="2"
+     inkscape:cx="489.17701"
+     inkscape:cy="617.18894"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -157,8 +157,8 @@
      id="path4190"
      inkscape:connector-curvature="0" />
   <path
-     style="fill:none;fill-rule:evenodd;stroke:#0000ff;stroke-width:1.07856297px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     d="m 373.5,71 41.87873,0 39.55215,0"
+     style="fill:none;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.8056131px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 373.5,71 23.36445,0 22.06643,0"
      id="path4153"
      inkscape:connector-curvature="0" />
   <path
@@ -180,5 +180,10 @@
      style="fill:none;fill-rule:evenodd;stroke:#0000ff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      d="m 512.88479,775.5 48.5,0"
      id="path4161"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#0000ff;stroke-width:0.8056131px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 389.78456,72.5 23.36445,0 22.06643,0"
+     id="path4153-6"
      inkscape:connector-curvature="0" />
 </svg>

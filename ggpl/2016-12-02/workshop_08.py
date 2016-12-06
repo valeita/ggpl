@@ -9,24 +9,32 @@ def ggpl_planimetry3D(file_list):
     of the casa.l'input is static and must not be varied.
     """
 
-    structure = []
-    empty = []
+    walls = []
+    wind = []
+    others = []
     
-    structure.append(S(2)(-1))
-    structure.append(create_floor(file_list[4]))
-    structure.append(create_floor(file_list[5]))
-    structure.append(create_floor(file_list[6]))
-    structure.append(TEXTURE("images/tint.jpg")(PROD([create_walls([file_list[0],file_list[1],file_list[2]]),Q(130)])))
-    structure.append(TEXTURE("images/glass.jpg")(PROD([create_glass_doors_windows(file_list[3],[2,2]),Q(130)])))
-    structure.append(TEXTURE("images/glass.jpg")(PROD([create_glass_doors_windows(file_list[7],[13,13]),Q(130)])))
-    empty.append(T(3)(30)(PROD([create_glass_doors_windows(file_list[8],[13,13]),Q(50)])))
-    window = STRUCT(empty)
-    house = STRUCT(structure)
-    #house_completed = DIFFERENCE([house,window])
-    VIEW(house)
-    #VIEW(window)
+    walls.append(S(2)(-1))
+    walls.append(PROD([create_walls([file_list[0],file_list[1],file_list[2]]),Q(130)]))
+    wind.append(S(2)(-1)(T(3)(40)(PROD([create_glass_doors_windows(file_list[8],[14,14]),Q(50)]))))
+    walls.append((T(3)(100)(PROD([create_glass_doors_windows(file_list[9],[6,6]),Q(30)]))))
+    walls.append((T(3)(100)(PROD([create_glass_doors_windows(file_list[10],[20,20]),Q(30)]))))
+    walls.append((T(3)(100)(PROD([create_glass_doors_windows(file_list[11],[13,13]),Q(30)]))))
+    house_part1 = TEXTURE("images/tint.jpg")(DIFFERENCE([STRUCT(walls),STRUCT(wind)]))
+    
+    others.append(S(2)(-1))
+    others.append(create_floor(file_list[4],9))
+    others.append(create_floor(file_list[5],6))
+    others.append(create_floor(file_list[6],1))
+    others.append(TEXTURE("images/glass.jpg")(PROD([create_glass_doors_windows(file_list[3],[2,2]),Q(100)])))
+    others.append(TEXTURE("images/glass.jpg")(PROD([create_glass_doors_windows(file_list[7],[13,13]),Q(130)])))
 
-    return house
+    house_part2 = STRUCT(others)
+
+    house_completed = STRUCT([house_part1,house_part2])
+    
+    VIEW(house_completed)
+
+    return house_completed
 
 
 def create_walls(file_list):
@@ -64,7 +72,7 @@ def create_walls(file_list):
 
 
 
-def create_floor(elem):
+def create_floor(elem,divisor):
 
     """
     the function takes as input a file containing lists
@@ -77,6 +85,8 @@ def create_floor(elem):
     yMIN = 100000000
     xMAX = -1
     yMAX = -1
+    cont1=0
+    cont2=0
     
     file = open(elem)
     
@@ -110,10 +120,30 @@ def create_floor(elem):
             
     file.close()
 
-    structure.append(MKPOL([[[xMIN,yMIN],[xMIN,yMAX],[xMAX,yMIN],[xMAX,yMAX]],[[1,2,3,4]],1]))
-    structure = TEXTURE("images/parquet.jpg")(STRUCT(structure))
+    x = xMAX-xMIN
+    y = yMAX-yMIN
+    i = x/divisor
+    j = y/divisor
+    traslx = 0
+    trasly = 0
+    structure.append(S(3)(-1))
+    while(cont1<divisor):
+
+        cont2=0
+        trasly = 0
+        while(cont2<divisor):
+
+            structure.append(TEXTURE("images/parquet.jpg")(T([1,2])([xMIN+traslx,yMIN+trasly])(CUBOID([i,j,1]))))
+            trasly = trasly+ j
+            cont2 = cont2+1
+            
+        cont1 = cont1+1
+        traslx = traslx+i
+        
+
+    structure = (STRUCT(structure))
  
-    return STRUCT([structure])
+    return structure
 
 
 
@@ -138,12 +168,6 @@ def create_glass_doors_windows(elem,offset):
     return STRUCT(structure)
 
 
-
-
-
-
-
-
-ggpl_planimetry3D(["file_txt/external_walls.txt","file_txt/external_walls2.txt","file_txt/internal_walls.txt","file_txt/glass_doors.txt","file_txt/floor1.txt","file_txt/floor2.txt","file_txt/floor3.txt","file_txt/glass_windows.txt","file_txt/windows.txt"])
+ggpl_planimetry3D(["file_txt/external_walls.txt","file_txt/external_walls2.txt","file_txt/internal_walls.txt","file_txt/glass_doors.txt","file_txt/floor1.txt","file_txt/floor2.txt","file_txt/floor3.txt","file_txt/glass_windows.txt","file_txt/windows.txt","file_txt/up_doors1.txt","file_txt/up_doors2.txt","file_txt/up_doors3.txt"])
 
 
