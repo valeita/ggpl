@@ -5,7 +5,7 @@ from math import *
 def ggpl_geometric_building_roof(segment_list):
     """
     this function takes in input a list of segment charaterized of two points, of this type: [[x,y,z],[x,y,z]]
-    the segmend, must be the same orientation, and every side must be long 3 minimum meters.
+    the segmend, must be the same orientation, and every side must be long 2 minimum meters.
     it returns the hpc of the completed structure.
     """
     points = []
@@ -103,6 +103,21 @@ def generate_terrace(internal_points,list_segment_angle):
     and the angles formed by the sides of the segments.
     it returns the hpc of the terrace.
     """
+
+    bool = verified_convexity(list_segment_angle)
+
+    if(bool == 1):
+
+        i=0
+        list2 = []
+        
+        while(i<len(internal_points)):
+            
+            list2.append(i+1)
+            i=i+1
+
+        return STRUCT([TEXTURE("texture/terrazza.jpg")((OFFSET([0.2,0.2,0.13])(MKPOL([internal_points,[list2],[1]]))))])
+    
     i=0
     list = []
     terrace = []
@@ -120,6 +135,25 @@ def generate_terrace(internal_points,list_segment_angle):
     
     return STRUCT(terrace)
 
+
+
+
+
+def verified_convexity(list_segment_angle):
+    """
+    this function verified the convexity of all roof'2 angles.
+    """
+    i=0
+    while(i<len(list_segment_angle)):
+
+        if(list_segment_angle[i]>180):
+
+            return 0
+        i=i+1
+    return 1
+
+
+    
 
 def search_nearest_point(point,index,internal_points):
     """
@@ -334,11 +368,12 @@ def check_input(segment_list):
 
         distance = sqrt((i[1][1]-i[0][1])**2 + (i[1][0]-i[0][0])**2)
 
-        if(distance <3):
+        if(distance <2):
 
-            exit("errore nella creazione di questa sezione di tetto: " + str(i) + "\nogni lato deve essere lungo almeno tre metri per la costruzione di un buon tetto. non rispettare questo vincolo, porta alla creazione di un tetto con un risultato poco apprezzabile")
+            exit("error in the creation of this roof section: "+ str (i) +" \n Every side must be along at least two meters for the construction of a good roof. not to respect this constraint, it leads to the creation of a roof with a little appreciable results")
 
-    
+
+ggpl_geometric_building_roof([[[0,0,0],[-2,2,0]],[[-2,2,0],[-2,4,0]],[[-2,4,0],[0,6,0]],[[0,6,0],[2,6,0]],[[2,6,0],[4,4,0]],[[4,4,0],[4,2,0]],[[4,2,0],[2,0,0]],[[2,0,0],[0,0,0]]])   
 ggpl_geometric_building_roof([[[0,0,0],[0,9,0]],[[0,9,0],[11,9,0]],[[11,9,0],[11,6,0]],[[11,6,0],[3,6,0]],[[3,6,0],[3,3,0]],[[3,3,0],[8,3,0]],[[8,3,0],[8,0,0]],[[8,0,0],[0,0,0]]])
 ggpl_geometric_building_roof([[[4,5,0],[2,8,0]],[[2,8,0],[11,8,0]],[[11,8,0],[9,11,0]],[[9,11,0],[20,8,0]],[[20,8,0],[20,3,0]],[[20,3,0],[14,1,0]],[[14,1,0],[11,5,0]],[[11,5,0],[4,5,0]]])
 
