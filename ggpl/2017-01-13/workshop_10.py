@@ -4,67 +4,59 @@ from workshop_08 import *
 from workshop_09 import *
 
 
-def design_of_parametric_multistorey_house(files_folder, num_planes, num_appartment, external_internal_ramp,house_x, house_y, house_z):
-
+def design_of_parametric_multistorey_house(files_folder, num_planes, num_appartment,house_x, house_y, house_z):
+    """
+    this function takes a list of files to build the planimetry,
+    the number of planes of the building, the number of appartment
+    for every plane, and the dimension of the house x,y and z.
+    It return the hpc of the completed building
+    """
+    building = []
     h_roof = house_z/5.
     house_z = house_z-h_roof
+
     
-    if(external_internal_ramp == "external"):
+    appartment_x = house_x
+    appartment_z = house_z/num_planes
+    appartment_y = house_y/num_appartment
+    dim_beams = (appartment_x + appartment_y)/50.
+    appartment_x = appartment_x - (2*(dim_beams))
+    appartment_z = appartment_z - (dim_beams)
+    appartment_y = appartment_y - (dim_beams)
+    appartment = ggpl_planimetry3D([files_folder[0],files_folder[1],files_folder[2],files_folder[3],files_folder[4],files_folder[5],files_folder[6],files_folder[7],files_folder[8],files_folder[9],files_folder[10],files_folder[11],files_folder[12]],appartment_x,appartment_y,appartment_z,dim_beams)
+    i=0
+    trasly = 0
 
-        building = []
+    if(appartment_y < appartment_z*2):
+        exit("put in the correct data input. The house must be more large.")
+    while(i<num_appartment):
+                
+        appartments_stack = generate_planes(num_planes,num_appartment,appartment_z,dim_beams,appartment)
+                
+        if(num_planes>1):
+            ramp = generate_ramps(appartment_x,appartment_y,appartment_z,num_planes,dim_beams)
+            appartments_stack = STRUCT([ramp,appartments_stack])
+        building.append(T(2)(trasly)(STRUCT([appartments_stack])))
+        i=i+1
+
+        trasly = trasly+appartment_y + dim_beams
+                
+    roof = generate_roof(house_x,house_y,house_z,h_roof)
+    project = T(1)(appartment_y/8.)(STRUCT([roof,STRUCT(building)]))
+    VIEW(project)
+    return project
         
-        if(num_appartment%2 != 0):
 
-            appartment_x = house_x
-            appartment_z = house_z/num_planes
-            appartment_y = house_y/num_appartment
-            dim_beams = (appartment_x + appartment_y)/50.
-            appartment_x = appartment_x - (2*(dim_beams))
-            appartment_z = appartment_z - (dim_beams)
-            appartment_y = appartment_y - (2*(dim_beams))
-            appartment = ggpl_planimetry3D([files_folder[0],files_folder[1],files_folder[2],files_folder[3],files_folder[4],files_folder[5],files_folder[6],files_folder[7],files_folder[8],files_folder[9],files_folder[10],files_folder[11],files_folder[12]],appartment_x,appartment_y,appartment_z,dim_beams)
-            i=0
-            trasly = 0
-
-            if(appartment_y < appartment_z*2):
-
-                exit("inserire in input dei dati corretti. La casa deve essere piu larga.")
-            while(i<num_appartment):
-                
-                appartments_stack = generate_planes(num_planes,num_appartment,appartment_z,dim_beams,appartment)
-                if(num_planes>1):
-                    ramp = generate_ramps(appartment_x,appartment_y,appartment_z,num_planes,dim_beams)
-                    appartments_stack = STRUCT([ramp,appartments_stack])
-                building.append(T(2)(trasly)(STRUCT([appartments_stack])))
-                i=i+1
-                trasly = trasly+appartment_y+((dim_beams))
-                
-            roof = generate_roof(house_x,house_y,house_z,h_roof)
-            
-            project = STRUCT([roof,STRUCT(building)])
-            VIEW(project)
-            
-        else:
-
-            appartment_x = house_x/num_appartment
-            appartment_z = house_z/num_planes
-            appartment_y = house_y/num_appartment
-            dim_beams = (appartment_x + appartment_y)/50.
-            appartment_x = appartment_x - (2*(dim_beams))
-            appartment_z = appartment_z - (dim_beams)
-            appartment_y = appartment_y - (2*(dim_beams))
-            appartment = ggpl_planimetry3D([files_folder[0],files_folder[1],files_folder[2],files_folder[3],files_folder[4],files_folder[5],files_folder[6],files_folder[7],files_folder[8],files_folder[9],files_folder[10],files_folder[11],files_folder[12]],appartment_x,appartment_y,appartment_z,dim_beams)
-
-            
-
-
-
-
-        return 1
 
 
 def generate_planes(num_planes, num_appartment,z_appartment,dim_beams,appartment):
 
+    """
+    this function takes the number of planes of the building, the number of appartment
+    for every plane, and the dimension of the single appartment about z, the beam's dimension,
+    and the appartment hpc.
+    It return the hpc of the appartment's stack.
+    """
     i=0
     house = []
     trasl_1 = 0
@@ -75,12 +67,17 @@ def generate_planes(num_planes, num_appartment,z_appartment,dim_beams,appartment
         trasl_1 = trasl_1+z_appartment
         trasl_2 = trasl_2+dim_beams
         i=i+1
-    return STRUCT(house)  
+    return STRUCT(house)
 
 
 def generate_roof(house_x,house_y,house_z,h_roof):
+
+    """
+    this function takes the house's dimension about x,y,z and the quote of the roof.
+    It return the hpc of the completed roof.
+    """
     
-    roof = roof = ggpl_geometric_building_roof([[[0,0,0],[0,house_y,0]],[[0,house_y,0],[house_x,house_y,0]],[[house_x,house_y,0],[house_x,0,0]],[[house_x,0,0],[0,0,0]]],h_roof)  
+    roof = ggpl_geometric_building_roof([[[0,0,0],[0,house_y,0]],[[0,house_y,0],[house_x,house_y,0]],[[house_x,house_y,0],[house_x,0,0]],[[house_x,0,0],[0,0,0]]],h_roof)  
     return T(3)(house_z)(roof)
 
 
@@ -88,6 +85,12 @@ def generate_roof(house_x,house_y,house_z,h_roof):
 
 def generate_ramps(appartment_x,appartment_y,appartment_z,num_planes,dim_beams):
 
+    """
+    this function takes the dimension of the single appartment about x,y,z,
+    the number of planes and the beam's dimension.
+    It return the hpc of the completed ramp.
+    """
+    
     ramp_x = appartment_x/2.5
     ramp_y = appartment_y/10.
     ramp_z = appartment_z+dim_beams
@@ -106,9 +109,9 @@ def generate_ramps(appartment_x,appartment_y,appartment_z,num_planes,dim_beams):
         trasl = trasl+appartment_z+dim_beams
   
         
-    return STRUCT(ramps)
+    return T(1)(-0.09)(STRUCT(ramps))
     
 
     
     
-design_of_parametric_multistorey_house(["file_txt/external_walls.txt","file_txt/external_walls2.txt","file_txt/internal_walls.txt","file_txt/glass_doors.txt","file_txt/floor1.txt","file_txt/floor2.txt","file_txt/floor3.txt","file_txt/glass_windows.txt","file_txt/windows.txt","file_txt/up_doors1.txt","file_txt/up_doors2.txt","file_txt/up_doors3.txt","file_txt/terrace.txt"], 2, 3, "external",35,50,20)
+design_of_parametric_multistorey_house(["file_txt/external_walls.txt","file_txt/external_walls2.txt","file_txt/internal_walls.txt","file_txt/glass_doors.txt","file_txt/floor1.txt","file_txt/floor2.txt","file_txt/floor3.txt","file_txt/glass_windows.txt","file_txt/windows.txt","file_txt/up_doors1.txt","file_txt/up_doors2.txt","file_txt/up_doors3.txt","file_txt/terrace.txt"], 8, 5,12,50,30)

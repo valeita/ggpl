@@ -37,6 +37,10 @@ def ggpl_building_stairs_with_landings(dx, dy, dz,bool):
 
 def generate_pillars(stepX,stepY,stepZ,dx,dy,dz,bool):
 
+    stepX = stepX/2.
+    stepY = stepY/2.
+    stepZ = stepZ/2.
+    
     pillars = []
     pillars.append(T(2)(-stepX)(CUBOID([stepX,stepX,dz])))
     pillars.append(T([1,2])([(dx/4)-stepX,-stepX])(CUBOID([stepX,stepX,dz])))

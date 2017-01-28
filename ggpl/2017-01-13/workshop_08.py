@@ -234,7 +234,7 @@ def generate_percentual(coords,lun_box_x, lun_box_y,lun_box_z,l_independent):
     yMIN = ((coords[1])/100.)*perc_y
     xMAX = ((coords[2])/100.)*perc_x
     yMAX = ((coords[3])/100.)*perc_y
-    
+
     structure.append(T(3)(-(lun_box_z)/40.)(TEXTURE("images/rock.jpg")(OFFSET([(lun_box_z/100.),(lun_box_z/100.),(lun_box_z/100.)])(CUBOID([xMAX,yMAX,lun_box_z/100])))))
 
     structure.append(TEXTURE("images/pillars.jpg")(MKPOL([[[xMIN,yMIN,0],[xMIN-l_independent,yMIN,0],[xMIN,yMIN-l_independent,0],[xMIN-l_independent,yMIN-l_independent,0],[xMIN,yMIN,lun_box_z],[xMIN-l_independent,yMIN,lun_box_z],[xMIN,yMIN-l_independent,lun_box_z],[xMIN-l_independent,yMIN-l_independent,lun_box_z]],[[1,2,3,4,5,6,7,8]],[1]])))    
@@ -246,7 +246,6 @@ def generate_percentual(coords,lun_box_x, lun_box_y,lun_box_z,l_independent):
     beams.append(TEXTURE("images/beams.jpg")(MKPOL([[[xMIN-l_independent,yMIN-l_independent,0],[xMIN,yMIN-l_independent,0],[xMIN-l_independent,yMIN-l_independent,-l_independent],[xMIN,yMIN-l_independent,-l_independent],[xMIN,yMAX+l_independent,0],[xMIN-l_independent,yMAX+l_independent,0],[xMIN,yMAX+l_independent,-l_independent],[xMIN-l_independent,yMAX+l_independent,-l_independent]],[[1,2,3,4,5,6,7,8]],[1]])))
     beams.append(TEXTURE("images/beams.jpg")(MKPOL([[[xMAX,yMIN,0],[xMAX+l_independent,yMIN,0],[xMAX+l_independent,yMAX+l_independent,0],[xMAX,yMAX+l_independent,0],[xMAX,yMIN,-l_independent],[xMAX+l_independent,yMIN,-l_independent],[xMAX+l_independent,yMAX+l_independent,-l_independent],[xMAX,yMAX+l_independent,-l_independent]],[[1,2,3,4,5,6,7,8]],[1]])))
     beams.append(TEXTURE("images/beams.jpg")(MKPOL([[[xMIN-l_independent,yMAX+l_independent,0],[xMIN-l_independent,yMAX,0],[xMIN-l_independent,yMAX,-l_independent],[xMIN-l_independent,yMAX+l_independent,-l_independent],[xMAX+l_independent,yMAX+l_independent,0],[xMAX+l_independent,yMAX,0],[xMAX+l_independent,yMAX+l_independent,-l_independent],[xMAX+l_independent,yMAX,-l_independent]],[[1,2,3,4,5,6,7,8]],[1]])))
-    
 
     down = STRUCT(beams)
     up = []
