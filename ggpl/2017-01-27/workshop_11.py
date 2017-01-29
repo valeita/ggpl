@@ -454,7 +454,9 @@ def model_of_suburban_neighborhood():
     trees.append(T([1,2])([20,-20])(STRUCT(speech)))
     trees.append(T([1,2])([40,-80])(STRUCT(speech)))
     trees.append(T([1,2])([40,-65])(STRUCT(speech)))
-
+    
+    trees.append(T([1,2])([22,-83])(STRUCT(speech)))
+    
     trees.append(T([1,2])([48,35])(random_tree()))
     trees.append(T([1,2])([49,38])(random_tree()))
     trees.append(T([1,2])([44,30])(random_tree()))
@@ -466,9 +468,9 @@ def model_of_suburban_neighborhood():
     trees.append(T([1,2])([47,39])(random_tree()))
     trees.append(T([1,2])([46,42])(random_tree()))
     trees.append(T([1,2])([48,43])(random_tree()))
-    trees.append(T([1,2])([43,27])(random_tree()))
+    trees.append(T([1,2])([45,27])(random_tree()))
     trees.append(T([1,2])([48,25])(random_tree()))
-
+    
     trees.append(T([1,2])([50,35])(random_tree()))
     trees.append(T([1,2])([52,38])(random_tree()))
     trees.append(T([1,2])([51,30])(random_tree()))
@@ -482,13 +484,13 @@ def model_of_suburban_neighborhood():
     trees.append(T([1,2])([56,43])(random_tree()))
     trees.append(T([1,2])([58,27])(random_tree()))
     trees.append(T([1,2])([59,25])(random_tree()))
-
-    trees.append(T([1,2])([65,38])(random_tree()))
-    trees.append(T([1,2])([64,37])(random_tree()))
-    trees.append(T([1,2])([63,36])(random_tree()))
-    trees.append(T([1,2])([61,39])(random_tree()))
-    trees.append(T([1,2])([62,37])(random_tree()))
-    trees.append(T([1,2])([664,36])(random_tree()))
+    
+    trees.append(T([1,2])([65,44])(random_tree()))
+    trees.append(T([1,2])([64,42])(random_tree()))
+    trees.append(T([1,2])([63,49])(random_tree()))
+    trees.append(T([1,2])([61,44])(random_tree()))
+    trees.append(T([1,2])([62,46])(random_tree()))
+    trees.append(T([1,2])([64,48])(random_tree()))
     """
 
 
