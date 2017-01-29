@@ -27,8 +27,8 @@ def design_of_parametric_multistorey_house(files_folder, num_planes, num_appartm
     i=0
     trasly = 0
 
-    if(appartment_y < appartment_z*2):
-        exit("put in the correct data input. The house must be more large.")
+    #if(appartment_y < appartment_z*2):
+        #exit("put in the correct data input. The house must be more large.")
     while(i<num_appartment):
                 
         appartments_stack = generate_planes(num_planes,num_appartment,appartment_z,dim_beams,appartment)

@@ -12,11 +12,11 @@ def ggpl_building_stairs_with_landings(dx, dy, dz,bool):
 
     angle = check(hHalved,xReduced)
     
-    if (angle != 100):
-        print("dimensioni non valide.")
-        print(" angolo " + str(angle) + " non compreso tra 30 gradi e 35 gradi")
-        print("inserire delle dimensioni valide")
-        return -1
+    #if (angle != 100):
+        #print("dimensioni non valide.")
+        #print(" angolo " + str(angle) + " non compreso tra 30 gradi e 35 gradi")
+        #print("inserire delle dimensioni valide")
+        #return -1
     
     comparisonAP = hHalved/xReduced
     stepZ = (0.63*comparisonAP)/((2.0*comparisonAP)+1.0)
